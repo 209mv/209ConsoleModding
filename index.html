@@ -1,82 +1,89 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>209 Console Modding</title>
-<link rel="stylesheet" href="styles.css">
+
+<style>
+body {
+  font-family: Arial;
+  background: #0b0b10;
+  color: white;
+  text-align: center;
+}
+
+input, select, button {
+  margin: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+}
+
+button {
+  background: #3a7bfd;
+  color: white;
+  cursor: pointer;
+}
+</style>
+
 </head>
 
 <body>
 
-<header>
-  <h1>209 Console Modding</h1>
-  <p>Start your order below</p>
-</header>
+<h1>209 Console Modding</h1>
 
-<div class="category" onclick="toggle(this)">
-  <div class="title">🎮 Nintendo 3DS Family</div>
-  <div class="items">
-    <div class="item" onclick="selectConsole('Old 3DS')">Old 3DS</div>
-    <div class="item" onclick="selectConsole('New 3DS XL')">New 3DS XL</div>
-    <div class="item" onclick="selectConsole('New 2DS XL')">New 2DS XL</div>
-  </div>
-</div>
+<input id="name" placeholder="Name">
+<input id="email" placeholder="Email">
 
-<div class="category" onclick="toggle(this)">
-  <div class="title">🎮 PSP</div>
-  <div class="items">
-    <div class="item" onclick="selectConsole('PSP 1000')">PSP 1000</div>
-    <div class="item" onclick="selectConsole('PSP 2000')">PSP 2000</div>
-    <div class="item" onclick="selectConsole('PSP 3000')">PSP 3000</div>
-    <div class="item" onclick="selectConsole('PSP Go')">PSP Go</div>
-  </div>
-</div>
+<br>
 
-<div class="category" onclick="toggle(this)">
-  <div class="title">🎮 Wii / Wii U</div>
-  <div class="items">
-    <div class="item" onclick="selectConsole('Wii')">Wii</div>
-    <div class="item" onclick="selectConsole('Wii U')">Wii U</div>
-  </div>
-</div>
+<select id="consoleSelect" onchange="updateTotal()">
+  <option value="">Select Console</option>
 
-<div class="category" onclick="toggle(this)">
-  <div class="title">🎮 PS Vita</div>
-  <div class="items">
-    <div class="item" onclick="selectConsole('PS Vita 1000')">PS Vita 1000</div>
-    <div class="item" onclick="selectConsole('PS Vita 2000')">PS Vita 2000</div>
-  </div>
-</div>
+  <optgroup label="3DS Family">
+    <option>Old 3DS</option>
+    <option>Old 2DS</option>
+    <option>New 3DS</option>
+    <option>New 3DS XL</option>
+    <option>New 2DS XL</option>
+  </optgroup>
 
-<div class="form-box">
+  <optgroup label="PSP">
+    <option>PSP 1000</option>
+    <option>PSP 2000</option>
+    <option>PSP 3000</option>
+    <option>PSP Go</option>
+  </optgroup>
 
-  <input id="name" placeholder="Full Name">
-  <input id="contact" placeholder="Email or Phone">
+  <optgroup label="PS Vita">
+    <option>PS Vita 1000</option>
+    <option>PS Vita 2000</option>
+  </optgroup>
 
-  <div class="selected">
-    Console: <span id="console">None</span>
-  </div>
+  <optgroup label="Nintendo">
+    <option>Wii</option>
+    <option>Wii U</option>
+  </optgroup>
+</select>
 
-  <div class="selected">
-    Service: <span id="service">None</span>
-  </div>
+<br>
 
-  <div class="selected">
-    Payment: <span id="payment">None</span>
-  </div>
+<select id="serviceSelect" onchange="updatePaymentOptions()">
+  <option value="">Service Type</option>
+  <option value="Mail-in">Mail-in</option>
+  <option value="Local Pickup">Local Pickup</option>
+</select>
 
-  <div class="service">
-    <button onclick="setService('Mail-in')">📦 Mail-in</button>
-    <button onclick="setService('Local Pickup')">🤝 Local Pickup</button>
-  </div>
+<div id="paymentOptions"></div>
 
-  <div id="paymentOptions" class="service"></div>
+<h3>Total: $<span id="total">0</span></h3>
 
-  <button class="submit" onclick="submitOrder()">Confirm Order</button>
+<p style="opacity:0.7;">
+If paying with card, please enter the total amount shown above.
+</p>
 
-</div>
+<button onclick="submitOrder()">Confirm Order</button>
 
 <script src="script.js"></script>
+
 </body>
 </html>
