@@ -4,7 +4,6 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>209 Console Modding</title>
-
 <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -12,10 +11,11 @@
 
 <header>
   <h1>209 Console Modding</h1>
-  <p>Custom modding services — start your order below</p>
+  <p>Start your order below</p>
 </header>
 
 <!-- CONSOLES -->
+
 <div class="category" onclick="toggle(this)">
   <div class="title">🎮 Nintendo 3DS Family</div>
   <div class="items">
@@ -56,24 +56,33 @@
   </div>
 </div>
 
-<!-- ORDER FORM -->
+<!-- FORM -->
+
 <div class="form-box">
 
   <input id="name" placeholder="Full Name">
   <input id="contact" placeholder="Email or Phone">
 
   <div class="selected">
-    Selected Console: <span id="console">None</span>
+    Console: <span id="console">None</span>
   </div>
 
   <div class="selected">
     Service: <span id="service">None</span>
   </div>
 
+  <div class="selected">
+    Payment: <span id="payment">None</span>
+  </div>
+
+  <!-- SERVICE -->
   <div class="service">
     <button onclick="setService('Mail-in')">📦 Mail-in</button>
     <button onclick="setService('Local Pickup')">🤝 Local Pickup</button>
   </div>
+
+  <!-- PAYMENT (dynamic) -->
+  <div id="paymentOptions" class="service"></div>
 
   <button class="submit" onclick="submitOrder()">Confirm Order</button>
 
