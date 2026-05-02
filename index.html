@@ -11,22 +11,6 @@ body {
   color: white;
 }
 
-/* top bar */
-.topbar {
-  display: flex;
-  justify-content: space-between;
-  padding: 15px;
-  background: #111827;
-}
-
-.topbar a {
-  color: white;
-  text-decoration: none;
-  padding: 8px 12px;
-  background: #3a7bfd;
-  border-radius: 8px;
-}
-
 .container {
   max-width: 520px;
   margin: 40px auto;
@@ -57,6 +41,14 @@ button {
   border: none;
   background: #3a7bfd;
   color: white;
+  cursor: pointer;
+}
+
+.total {
+  margin-top: 10px;
+  padding: 10px;
+  background: #0f172a;
+  border-radius: 10px;
 }
 </style>
 
@@ -64,42 +56,37 @@ button {
 
 <body>
 
-<!-- TOP BAR -->
-<div class="topbar">
-  <div>209 Console Modding</div>
-  <a href="track.html">Track Order</a>
-</div>
-
 <div class="container">
 <div class="card">
 
-<h2>Place Order</h2>
+<h2>209 Console Modding</h2>
 
-<div id="step1">
-  <input id="name" placeholder="Name">
-  <input id="email" placeholder="Email">
-</div>
+<input id="name" placeholder="Name">
+<input id="email" placeholder="Email">
 
-<select id="consoleSelect" onchange="updateTotal()">
+<select id="consoleSelect" onchange="updateConsole()">
   <option value="">Select Console</option>
   <option>Old 3DS</option>
   <option>Old 2DS</option>
   <option>New 3DS</option>
+  <option>New 3DS XL</option>
   <option>New 2DS XL</option>
   <option>PSP 2000</option>
   <option>PS Vita 1000</option>
   <option>Wii U</option>
 </select>
 
-<select id="serviceSelect" onchange="updatePaymentOptions()">
-  <option value="">Service</option>
+<select id="methodSelect" onchange="updateMethod()">
+  <option value="">Method</option>
   <option value="Mail-in">Mail-in</option>
   <option value="Local Pickup">Local Pickup</option>
 </select>
 
-<div id="paymentOptions"></div>
+<div id="paymentBox"></div>
 
-<p>Total: $<span id="total">0</span></p>
+<div class="total">
+Total: $<span id="total">0</span>
+</div>
 
 <button onclick="submitOrder()">Confirm Order</button>
 
