@@ -56,7 +56,7 @@ function submitOrder() {
     status: "Pending"
   };
 
-  fetch("YOUR_APPS_SCRIPT_URL_HERE", {
+  fetch("https://script.google.com/macros/s/AKfycbyKGMTA4HfBijE6VhSfwQ-sNafopyBXw29ZZkYoHyyfFTSYMtoAWZcKjeQnD5tCFrtq/exec", {
     method: "POST",
     body: JSON.stringify(data)
   })
