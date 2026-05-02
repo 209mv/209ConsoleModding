@@ -13,7 +13,7 @@
 async function track() {
   const id = document.getElementById("id").value;
 
-  const res = await fetch("YOUR_WEBAPP_URL");
+  const res = await fetch("https://script.google.com/macros/s/AKfycby9WlMzerm-tqYvuiHySkP6hVMoKjbUew7_RNFaLZmz6oOS0iNjqki5ZkvAzfyQkRtb/exec");
   const data = await res.json();
 
   const order = data.find(o => o.orderId === id);
