@@ -7,8 +7,24 @@
 body {
   margin: 0;
   font-family: Arial;
-  background: linear-gradient(180deg, #0b0b10, #111827);
+  background: #0b0b10;
   color: white;
+}
+
+/* top bar */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  background: #111827;
+}
+
+.topbar a {
+  color: white;
+  text-decoration: none;
+  padding: 8px 12px;
+  background: #3a7bfd;
+  border-radius: 8px;
 }
 
 .container {
@@ -21,12 +37,6 @@ body {
   background: #161b22;
   padding: 25px;
   border-radius: 16px;
-  animation: fade 0.3s ease;
-}
-
-@keyframes fade {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
 }
 
 input, select {
@@ -47,31 +57,6 @@ button {
   border: none;
   background: #3a7bfd;
   color: white;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-button:hover {
-  transform: scale(1.02);
-}
-
-.secondary {
-  background: #1f2937;
-}
-
-.step { display: none; }
-.step.active { display: block; }
-
-.total {
-  margin-top: 10px;
-  padding: 10px;
-  background: #0f172a;
-  border-radius: 10px;
-}
-
-.note {
-  font-size: 12px;
-  opacity: 0.7;
 }
 </style>
 
@@ -79,67 +64,44 @@ button:hover {
 
 <body>
 
+<!-- TOP BAR -->
+<div class="topbar">
+  <div>209 Console Modding</div>
+  <a href="track.html">Track Order</a>
+</div>
+
 <div class="container">
 <div class="card">
 
-<h2>209 Console Modding</h2>
+<h2>Place Order</h2>
 
-<!-- STEP 1 -->
-<div id="step1" class="step active">
+<div id="step1">
   <input id="name" placeholder="Name">
   <input id="email" placeholder="Email">
-  <button onclick="nextStep(2)">Next</button>
 </div>
 
-<!-- STEP 2 -->
-<div id="step2" class="step">
-  <select id="consoleSelect" onchange="updateTotal()">
-    <option value="">Select Console</option>
-    <option>Old 3DS</option>
-    <option>Old 2DS</option>
-    <option>New 3DS</option>
-    <option>New 3DS XL</option>
-    <option>New 2DS XL</option>
-    <option>PSP 1000</option>
-    <option>PSP 2000</option>
-    <option>PSP 3000</option>
-    <option>PSP Go</option>
-    <option>PS Vita 1000</option>
-    <option>PS Vita 2000</option>
-    <option>Wii</option>
-    <option>Wii U</option>
-  </select>
+<select id="consoleSelect" onchange="updateTotal()">
+  <option value="">Select Console</option>
+  <option>Old 3DS</option>
+  <option>Old 2DS</option>
+  <option>New 3DS</option>
+  <option>New 2DS XL</option>
+  <option>PSP 2000</option>
+  <option>PS Vita 1000</option>
+  <option>Wii U</option>
+</select>
 
-  <button onclick="nextStep(3)">Next</button>
-</div>
+<select id="serviceSelect" onchange="updatePaymentOptions()">
+  <option value="">Service</option>
+  <option value="Mail-in">Mail-in</option>
+  <option value="Local Pickup">Local Pickup</option>
+</select>
 
-<!-- STEP 3 -->
-<div id="step3" class="step">
-  <select id="serviceSelect" onchange="updatePaymentOptions()">
-    <option value="">Service Type</option>
-    <option value="Mail-in">Mail-in</option>
-    <option value="Local Pickup">Local Pickup</option>
-  </select>
+<div id="paymentOptions"></div>
 
-  <div id="paymentOptions"></div>
+<p>Total: $<span id="total">0</span></p>
 
-  <div class="total">
-    Total: $<span id="total">0</span>
-  </div>
-
-  <p class="note">
-    If paying with card, enter the exact amount shown above.
-  </p>
-
-  <button onclick="nextStep(4)">Next</button>
-</div>
-
-<!-- STEP 4 -->
-<div id="step4" class="step">
-  <h3>Review Order</h3>
-  <pre id="summary"></pre>
-  <button onclick="submitOrder()">Confirm Order</button>
-</div>
+<button onclick="submitOrder()">Confirm Order</button>
 
 </div>
 </div>
