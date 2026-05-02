@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Dashboard</title>
+<style>
+body { font-family: Arial; background:#0b0b10; color:white; }
+.card { background:#1a1a22; padding:10px; margin:10px; border-radius:10px; }
+button { margin:5px; padding:5px; }
+</style>
+</head>
+
+<body>
+
+<h1>Admin Dashboard</h1>
+
+<div id="orders"></div>
+
+<script>
+async function loadOrders() {
+  const res = await fetch("YOUR_APPS_SCRIPT_URL");
+  const data = await res.json();
+
+  const container = document.getElementById("orders");
+  container.innerHTML = "";
+
+  data.forEach(o => {
+    container.innerHTML += `
+      <div class="card">
+        <h3>${o.orderId}</h3>
+        <p>${o.name} - ${o.console}</p>
+        <p>$${o.price}</p>
+        <p>Status: ${o.status}</p>
+
+        <button onclick="update('${o.orderId}','Paid')">Paid</button>
+        <button onclick="update('${o.orderId}','Shipped')">Shipped</button>
+        <button onclick="update('${o.orderId}','Completed')">Done</button>
+      </div>
+    `;
+  });
+}
+
+function update(id, status) {
+  fetch("YOUR_APPS_SCRIPT_URL?order=" + id + "&status=" + status);
+  alert("Updated");
+  loadOrders();
+}
+
+loadOrders();
+</script>
+
+</body>
+</html>
