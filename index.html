@@ -14,17 +14,12 @@
   <p>Start your order below</p>
 </header>
 
-<!-- CONSOLES -->
-
 <div class="category" onclick="toggle(this)">
   <div class="title">🎮 Nintendo 3DS Family</div>
   <div class="items">
     <div class="item" onclick="selectConsole('Old 3DS')">Old 3DS</div>
-    <div class="item" onclick="selectConsole('Old 3DS XL')">Old 3DS XL</div>
-    <div class="item" onclick="selectConsole('New 3DS')">New 3DS</div>
     <div class="item" onclick="selectConsole('New 3DS XL')">New 3DS XL</div>
     <div class="item" onclick="selectConsole('New 2DS XL')">New 2DS XL</div>
-    <div class="item" onclick="selectConsole('Old 2DS')">Old 2DS</div>
   </div>
 </div>
 
@@ -41,9 +36,7 @@
 <div class="category" onclick="toggle(this)">
   <div class="title">🎮 Wii / Wii U</div>
   <div class="items">
-    <div class="item" onclick="selectConsole('Wii (GameCube Ports)')">Wii (GameCube Ports)</div>
-    <div class="item" onclick="selectConsole('Wii (No GameCube Ports)')">Wii (No GameCube Ports)</div>
-    <div class="item" onclick="selectConsole('Wii Mini')">Wii Mini</div>
+    <div class="item" onclick="selectConsole('Wii')">Wii</div>
     <div class="item" onclick="selectConsole('Wii U')">Wii U</div>
   </div>
 </div>
@@ -55,8 +48,6 @@
     <div class="item" onclick="selectConsole('PS Vita 2000')">PS Vita 2000</div>
   </div>
 </div>
-
-<!-- FORM -->
 
 <div class="form-box">
 
@@ -75,13 +66,11 @@
     Payment: <span id="payment">None</span>
   </div>
 
-  <!-- SERVICE -->
   <div class="service">
     <button onclick="setService('Mail-in')">📦 Mail-in</button>
     <button onclick="setService('Local Pickup')">🤝 Local Pickup</button>
   </div>
 
-  <!-- PAYMENT (dynamic) -->
   <div id="paymentOptions" class="service"></div>
 
   <button class="submit" onclick="submitOrder()">Confirm Order</button>
