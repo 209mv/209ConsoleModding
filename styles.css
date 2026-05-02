@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: Arial;
   background: #0b0b10;
   color: white;
   text-align: center;
@@ -10,69 +10,35 @@ header {
   padding: 40px 20px 10px;
 }
 
-h1 {
-  margin: 0;
-  font-size: 32px;
-}
-
-p {
-  opacity: 0.7;
-}
-
-/* CATEGORY CARD */
 .category {
   width: 340px;
   margin: 14px auto;
   background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 18px;
+  border-radius: 16px;
   padding: 16px;
   cursor: pointer;
-  transition: 0.25s ease;
 }
 
-.category:hover {
-  transform: translateY(-3px);
-  background: rgba(255,255,255,0.09);
-}
-
-.title {
-  font-size: 18px;
-  font-weight: bold;
-}
-
-/* COLLAPSE */
 .items {
   max-height: 0;
   overflow: hidden;
-  transition: 0.35s ease;
-  opacity: 0;
+  transition: 0.3s;
 }
 
 .category.open .items {
-  max-height: 500px;
-  opacity: 1;
-  margin-top: 10px;
+  max-height: 400px;
 }
 
-/* ITEM */
 .item {
-  background: rgba(255,255,255,0.07);
-  margin: 8px;
+  background: rgba(255,255,255,0.08);
+  margin: 6px;
   padding: 10px;
-  border-radius: 12px;
-  transition: 0.2s;
+  border-radius: 10px;
 }
 
-.item:hover {
-  background: rgba(255,255,255,0.12);
-  transform: scale(1.02);
-}
-
-/* FORM */
 .form-box {
   width: 340px;
-  margin: 30px auto;
+  margin: 20px auto;
   padding: 16px;
   background: rgba(255,255,255,0.06);
   border-radius: 16px;
@@ -81,36 +47,21 @@ p {
 input {
   width: 90%;
   padding: 10px;
-  margin: 8px;
+  margin: 6px;
   border-radius: 10px;
   border: none;
 }
 
-.selected {
-  margin: 10px;
-  opacity: 0.85;
-}
-
-/* BUTTON GROUPS */
-.service button {
-  margin: 6px;
+button {
   padding: 10px;
+  margin: 6px;
   border-radius: 10px;
   border: none;
   cursor: pointer;
 }
 
-/* SUBMIT */
 .submit {
-  margin-top: 12px;
-  padding: 12px;
   width: 100%;
-  border-radius: 12px;
   background: #3a7bfd;
   color: white;
-  border: none;
-}
-
-.submit:hover {
-  background: #5a92ff;
 }
