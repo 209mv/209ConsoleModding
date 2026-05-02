@@ -1,0 +1,117 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0b0b10;
+  color: white;
+  text-align: center;
+}
+
+header {
+  padding: 40px 20px 10px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 32px;
+}
+
+p {
+  opacity: 0.7;
+}
+
+/* CONTAINER */
+.category {
+  width: 340px;
+  margin: 14px auto;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 18px;
+  padding: 16px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.category:hover {
+  transform: translateY(-3px);
+  background: rgba(255,255,255,0.09);
+}
+
+.title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* COLLAPSE */
+.items {
+  max-height: 0;
+  overflow: hidden;
+  transition: 0.35s ease;
+  opacity: 0;
+}
+
+.category.open .items {
+  max-height: 500px;
+  opacity: 1;
+  margin-top: 10px;
+}
+
+/* ITEMS */
+.item {
+  background: rgba(255,255,255,0.07);
+  margin: 8px;
+  padding: 10px;
+  border-radius: 12px;
+  transition: 0.2s;
+}
+
+.item:hover {
+  background: rgba(255,255,255,0.12);
+  transform: scale(1.02);
+}
+
+/* FORM */
+.form-box {
+  width: 340px;
+  margin: 30px auto;
+  padding: 16px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 16px;
+}
+
+input {
+  width: 90%;
+  padding: 10px;
+  margin: 8px;
+  border-radius: 10px;
+  border: none;
+}
+
+/* STATUS */
+.selected {
+  margin: 10px;
+  opacity: 0.8;
+}
+
+/* SERVICE BUTTONS */
+.service button {
+  margin: 6px;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+/* SUBMIT */
+.submit {
+  margin-top: 12px;
+  padding: 12px;
+  width: 100%;
+  border-radius: 12px;
+  background: #3a7bfd;
+  color: white;
+  border: none;
+}
+
+.submit:hover {
+  background: #5a92ff;
+}
