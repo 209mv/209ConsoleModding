@@ -17,7 +17,7 @@
 async function track() {
   const id = document.getElementById("orderId").value;
 
-  const res = await fetch("https://script.google.com/macros/s/AKfycbzTWcvcKy_tIWr16jPtqAFVgObKCicGWIBfyz6HEPCEKjPdb2qW1K4mCJdn9FgutGwg/exec");
+  const res = await fetch("https://script.google.com/macros/s/AKfycbx_Z6FZ_kxTmTC2ajjwVQ7Ox9EsxA1eBDrZmcvh9dVpgjINpBe92EX74EXyEYw0M-h3/exec");
   const data = await res.json();
 
   const order = data.find(o => o.orderId === id);
