@@ -1,38 +1,33 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Track Order</title>
-</head>
+<body style="background:#0b0b10;color:white;text-align:center;font-family:Arial;">
 
-<body style="background:#0b0b10;color:white;text-align:center;">
+<h1>Track Order (enter everything including ORD-)</h1>
 
-<h1>Track Your Order</h1>
-
-<input id="orderId" placeholder="Enter Order ID">
+<input id="id" placeholder="Order ID">
 <button onclick="track()">Track</button>
 
-<div id="result"></div>
+<div id="out"></div>
 
 <script>
 async function track() {
-  const id = document.getElementById("orderId").value;
+  const id = document.getElementById("id").value;
 
-  const res = await fetch("https://script.google.com/macros/s/AKfycbx_Z6FZ_kxTmTC2ajjwVQ7Ox9EsxA1eBDrZmcvh9dVpgjINpBe92EX74EXyEYw0M-h3/exec");
+  const res = await fetch("YOUR_WEBAPP_URL");
   const data = await res.json();
 
   const order = data.find(o => o.orderId === id);
 
   if (!order) {
-    document.getElementById("result").innerText = "Not found";
+    document.getElementById("out").innerText = "Not found";
     return;
   }
 
-  document.getElementById("result").innerHTML = `
-    <h3>${order.orderId}</h3>
+  document.getElementById("out").innerHTML = `
+    <h2>${order.orderId}</h2>
     <p>Status: ${order.status}</p>
     <p>Console: ${order.console}</p>
-    <p>Price: $${order.price}</p>
-    <a href="${order.payment}" target="_blank">Payment Link</a>
+    <p>Total: $${order.price}</p>
   `;
 }
 </script>
