@@ -1,3 +1,5 @@
+let step = 1;
+
 let selectedConsole = "";
 let selectedService = "";
 let selectedPayment = "";
@@ -19,15 +21,43 @@ const PRICES = {
   "Wii U": 35
 };
 
+/* STEP CONTROL WITH VALIDATION */
+function nextStep(n) {
+
+  if (step === 1) {
+    if (!document.getElementById("name").value ||
+        !document.getElementById("email").value) {
+      alert("Enter name and email");
+      return;
+    }
+  }
+
+  if (step === 2 && !selectedConsole) {
+    alert("Select a console");
+    return;
+  }
+
+  if (step === 3 && !selectedService) {
+    alert("Select service type");
+    return;
+  }
+
+  document.getElementById("step" + step).classList.remove("active");
+  step = n;
+  document.getElementById("step" + step).classList.add("active");
+
+  if (step === 4) updateSummary();
+}
+
+/* PRICE */
 function updateTotal() {
-  const consoleVal = document.getElementById("consoleSelect").value;
-
-  selectedConsole = consoleVal;
-  total = PRICES[consoleVal] || 0;
-
+  const val = document.getElementById("consoleSelect").value;
+  selectedConsole = val;
+  total = PRICES[val] || 0;
   document.getElementById("total").innerText = total;
 }
 
+/* PAYMENT OPTIONS */
 function updatePaymentOptions() {
   selectedService = document.getElementById("serviceSelect").value;
 
@@ -46,18 +76,25 @@ function updatePaymentOptions() {
   }
 }
 
+/* SAFE PAYMENT SETTER */
 function setPayment(method) {
   selectedPayment = method;
 }
 
-function submitOrder() {
-  const name = document.getElementById("name").value.trim();
-  const email = document.getElementById("email").value.trim();
+/* SUMMARY */
+function updateSummary() {
+  document.getElementById("summary").innerText =
+`Console: ${selectedConsole}
+Service: ${selectedService}
+Payment: ${selectedPayment}
+Total: $${total}`;
+}
 
-  if (!name || !email || !selectedConsole || !selectedService || !selectedPayment) {
-    alert("Fill everything correctly");
-    return;
-  }
+/* SUBMIT */
+function submitOrder() {
+
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
 
   const data = new URLSearchParams();
   data.append("name", name);
@@ -66,40 +103,23 @@ function submitOrder() {
   data.append("service", selectedService);
   data.append("payment", selectedPayment);
 
-  fetch("https://script.google.com/macros/s/AKfycbx_Z6FZ_kxTmTC2ajjwVQ7Ox9EsxA1eBDrZmcvh9dVpgjINpBe92EX74EXyEYw0M-h3/exec", {
+  fetch("https://script.google.com/macros/s/AKfycbx26EGwkNOP2R6za22cXSr-GgKIqfEFOuhq51QsO2n5w2WN6ziRwEEhTSel9202GSpV/exec", {
     method: "POST",
     body: data
   })
   .then(res => res.json())
-  .then(res => showSuccess(res))
-  .catch(err => {
-    console.error(err);
-    alert("Error submitting order");
-  });
-}
+  .then(res => {
 
-function showSuccess(res) {
-  if (res.payment === "Cash") {
-    document.body.innerHTML = `
-      <h1>Order Confirmed</h1>
-      <h2>${res.orderId}</h2>
-      <h2>Total: $${res.total}</h2>
-      <p>Pay in person (Cash)</p>
-    `;
-  } else {
     document.body.innerHTML = `
       <h1>Order Confirmed</h1>
       <h2>${res.orderId}</h2>
       <h2>Total: $${res.total}</h2>
 
       <a href="${res.paymentUrl}" target="_blank"
-        style="padding:15px;background:#3a7bfd;color:white;border-radius:10px;text-decoration:none;">
-        💳 Pay with Card
+        style="padding:12px;background:#3a7bfd;color:white;text-decoration:none;">
+        Pay with Card
       </a>
-
-      <p style="margin-top:15px;opacity:0.7;">
-        Enter exactly $${res.total} when paying.
-      </p>
     `;
-  }
+
+  });
 }
