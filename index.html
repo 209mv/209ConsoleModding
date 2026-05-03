@@ -9,6 +9,16 @@ body {
   font-family: Arial;
   background: #0b0b10;
   color: white;
+  overflow-x: hidden;
+}
+
+#stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
 }
 
 .container {
@@ -18,9 +28,17 @@ body {
 }
 
 .card {
-  background: #161b22;
+  background: rgba(22, 27, 34, 0.85);
+  backdrop-filter: blur(10px);
   padding: 20px;
-  border-radius: 14px;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(58,123,253,0.2);
+  animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(10px);}
+  to {opacity: 1; transform: translateY(0);}
 }
 
 input, select {
@@ -40,6 +58,12 @@ button {
   background: #3a7bfd;
   color: white;
   cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 15px rgba(58,123,253,0.6);
 }
 
 .total {
@@ -48,11 +72,52 @@ button {
   background: #0f172a;
   border-radius: 8px;
 }
+
+/* console UI */
+.box {
+  background:#1f2937;
+  padding:14px;
+  border-radius:12px;
+  margin-bottom:8px;
+  cursor:pointer;
+  text-align:center;
+  transition: 0.2s;
+}
+
+.box:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 12px rgba(58,123,253,0.4);
+}
+
+.sub {
+  margin-left:10px;
+  margin-bottom:10px;
+}
+
+.subbox {
+  background:#111827;
+  padding:10px;
+  margin:6px 0;
+  border-radius:10px;
+  cursor:pointer;
+  transition: 0.2s;
+}
+
+.subbox:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 10px rgba(58,123,253,0.3);
+}
+
+.hidden {
+  display:none;
+}
 </style>
 
 </head>
 
 <body>
+
+<canvas id="stars"></canvas>
 
 <div class="container">
 <div class="card">
@@ -62,29 +127,59 @@ button {
 <input id="name" placeholder="Name">
 <input id="email" placeholder="Email">
 
-<select id="console" onchange="updatePrice()">
-  <option value="">Select Console</option>
-  <option>Old 3DS</option>
-  <option>Old 2DS</option>
-  <option>New 3DS</option>
-  <option>New 3DS XL</option>
-  <option>New 2DS XL</option>
-  <option>PSP 2000</option>
-  <option>PS Vita 1000</option>
-  <option>Wii U</option>
-</select>
+<!-- CONSOLES -->
+<div style="margin-top:10px;">
+  <p>Select Console:</p>
 
-<select id="method">
+  <div class="box" onclick="toggle('wii')">Wii</div>
+  <div id="wii" class="sub hidden">
+    <div class="subbox" onclick="selectConsole('Wii (GameCube Ports)')">Wii (GameCube Ports)</div>
+    <div class="subbox" onclick="selectConsole('Wii (No GameCube Ports)')">Wii (No GameCube Ports)</div>
+    <div class="subbox" onclick="selectConsole('Wii Mini')">Wii Mini</div>
+  </div>
+
+  <div class="box" onclick="toggle('3ds')">Nintendo 3DS</div>
+  <div id="3ds" class="sub hidden">
+    <div class="subbox" onclick="selectConsole('Old 3DS')">Old 3DS</div>
+    <div class="subbox" onclick="selectConsole('Old 3DS XL')">Old 3DS XL</div>
+    <div class="subbox" onclick="selectConsole('New 3DS')">New 3DS</div>
+    <div class="subbox" onclick="selectConsole('New 3DS XL')">New 3DS XL</div>
+  </div>
+
+  <div class="box" onclick="toggle('2ds')">Nintendo 2DS</div>
+  <div id="2ds" class="sub hidden">
+    <div class="subbox" onclick="selectConsole('Old 2DS')">Old 2DS</div>
+    <div class="subbox" onclick="selectConsole('New 2DS XL')">New 2DS XL</div>
+  </div>
+
+  <div class="box" onclick="selectConsole('DS')">Nintendo DS</div>
+
+  <div class="box" onclick="selectConsole('Wii U')">Wii U</div>
+
+  <div class="box" onclick="toggle('psp')">PSP</div>
+  <div id="psp" class="sub hidden">
+    <div class="subbox" onclick="selectConsole('PSP 1000')">PSP 1000</div>
+    <div class="subbox" onclick="selectConsole('PSP 2000')">PSP 2000</div>
+    <div class="subbox" onclick="selectConsole('PSP 3000')">PSP 3000</div>
+    <div class="subbox" onclick="selectConsole('PSP Go')">PSP Go</div>
+  </div>
+
+  <div class="box" onclick="toggle('vita')">PS Vita</div>
+  <div id="vita" class="sub hidden">
+    <div class="subbox" onclick="selectConsole('PS Vita 1000')">PS Vita 1000</div>
+    <div class="subbox" onclick="selectConsole('PS Vita 2000')">PS Vita 2000</div>
+  </div>
+</div>
+
+<input type="hidden" id="console">
+
+<select id="method" onchange="updatePaymentOptions()">
   <option value="">Method</option>
   <option value="Mail-in">Mail-in</option>
   <option value="Local Pickup">Local Pickup</option>
 </select>
 
-<select id="payment">
-  <option value="">Payment</option>
-  <option value="Cash">Cash</option>
-  <option value="Card">Card</option>
-</select>
+<select id="payment"></select>
 
 <div class="total">
 Total: $<span id="total">0</span>
@@ -96,6 +191,52 @@ Total: $<span id="total">0</span>
 </div>
 
 <script src="script.js"></script>
+
+<script>
+/* STAR BACKGROUND */
+const canvas = document.getElementById("stars");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let stars = [];
+
+for (let i = 0; i < 120; i++) {
+  stars.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 2,
+    d: Math.random()
+  });
+}
+
+function draw() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle = "white";
+
+  stars.forEach(s => {
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+    ctx.fill();
+
+    s.y += s.d;
+    if (s.y > canvas.height) {
+      s.y = 0;
+      s.x = Math.random()*canvas.width;
+    }
+  });
+
+  requestAnimationFrame(draw);
+}
+
+draw();
+
+window.addEventListener("resize", () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+</script>
 
 </body>
 </html>
