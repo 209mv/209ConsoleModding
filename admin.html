@@ -17,7 +17,7 @@ button { margin:5px; padding:5px; }
 
 <script>
 async function loadOrders() {
-  const res = await fetch("https://script.google.com/macros/s/AKfycbw2A-b_0RM8PHk4on-J5biyuKrmrpfjuPf7hv21fxbju84cNc_MMG9ZYRGZ0vXwnk_j/exec");
+  const res = await fetch("https://script.google.com/macros/s/AKfycbwwgVD5KWy7g2I6MoGtWBnsF1TVF_RdXyFwhq6RO0tLRjLEH5qu79nT9XzjDPF6bvRc/exec");
   const data = await res.json();
 
   const container = document.getElementById("orders");
@@ -40,7 +40,7 @@ async function loadOrders() {
 }
 
 function update(id, status) {
-  fetch("https://script.google.com/macros/s/AKfycbw2A-b_0RM8PHk4on-J5biyuKrmrpfjuPf7hv21fxbju84cNc_MMG9ZYRGZ0vXwnk_j/exec?order=" + id + "&status=" + status);
+  fetch("https://script.google.com/macros/s/AKfycbwwgVD5KWy7g2I6MoGtWBnsF1TVF_RdXyFwhq6RO0tLRjLEH5qu79nT9XzjDPF6bvRc/exec?order=" + id + "&status=" + status);
   alert("Updated");
   loadOrders();
 }
