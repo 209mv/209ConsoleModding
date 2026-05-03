@@ -65,7 +65,7 @@ function submitOrder() {
   data.append("method", method);
   data.append("payment", payment);
 
-  fetch("YOUR_WEBAPP_URL", {
+  fetch("https://script.google.com/macros/s/AKfycbw2A-b_0RM8PHk4on-J5biyuKrmrpfjuPf7hv21fxbju84cNc_MMG9ZYRGZ0vXwnk_j/exec", {
     method: "POST",
     body: data
   })
