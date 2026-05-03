@@ -26,8 +26,9 @@ const PRICES = {
 };
 
 
+
 // -----------------------------
-// CONSOLE SELECTION SYSTEM
+// CONSOLE SYSTEM
 // -----------------------------
 
 function selectConsole(value) {
@@ -36,8 +37,9 @@ function selectConsole(value) {
 }
 
 
+
 // -----------------------------
-// PRICE UPDATE
+// PRICE SYSTEM
 // -----------------------------
 
 function updatePrice() {
@@ -46,32 +48,48 @@ function updatePrice() {
 }
 
 
+
 // -----------------------------
-// PAYMENT OPTIONS (RULES)
+// METHOD + PAYMENT (CLICK UI)
 // -----------------------------
 
-function updatePaymentOptions() {
+function selectMethod(value) {
+  document.getElementById("method").value = value;
+  renderPaymentOptions(value);
+}
 
-  const method = document.getElementById("method").value;
-  const payment = document.getElementById("payment");
+function renderPaymentOptions(method) {
 
-  payment.innerHTML = `<option value="">Payment</option>`;
+  const box = document.getElementById("paymentOptions");
+  box.innerHTML = "";
+
+  // reset payment
+  document.getElementById("payment").value = "";
 
   if (method === "Mail-in") {
-    payment.innerHTML += `<option value="Card">Card (Required)</option>`;
+    box.innerHTML = `
+      <div class="btn" onclick="selectPayment('Card')">
+        Card (Required)
+      </div>
+    `;
   }
 
   if (method === "Local Pickup") {
-    payment.innerHTML += `
-      <option value="Cash">Cash</option>
-      <option value="Card">Card</option>
+    box.innerHTML = `
+      <div class="btn" onclick="selectPayment('Cash')">Cash</div>
+      <div class="btn" onclick="selectPayment('Card')">Card</div>
     `;
   }
 }
 
+function selectPayment(value) {
+  document.getElementById("payment").value = value;
+}
+
+
 
 // -----------------------------
-// SUBMIT ORDER (FULL FLOW FIXED)
+// ORDER SUBMIT (FULL SAFE FLOW)
 // -----------------------------
 
 function submitOrder() {
@@ -83,7 +101,7 @@ function submitOrder() {
   const payment = document.getElementById("payment").value;
 
   if (!name || !email || !console || !method || !payment) {
-    alert("Please fill all fields");
+    alert("Please complete all fields");
     return;
   }
 
@@ -112,11 +130,11 @@ function submitOrder() {
     const orderId = res.orderId;
 
     if (!orderId) {
-      alert("Order failed (no ID returned)");
+      alert("Order failed (no ID)");
       return;
     }
 
-    // CARD PAYMENT FLOW
+    // STEP PAYMENT FLOW
     if (payment === "Card") {
       window.open("https://step.com/$/209_mv", "_blank");
     }
