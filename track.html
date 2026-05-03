@@ -8,11 +8,41 @@ body {
   font-family: Arial;
   background: #0b0b10;
   color: white;
+  margin: 0;
+}
+
+/* NAVBAR */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(22,27,34,0.95);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 12px 0;
+  z-index: 1000;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 8px 14px;
+  border-radius: 8px;
+  transition: 0.2s;
+}
+
+.navbar a:hover {
+  background: #3a7bfd;
+  transform: scale(1.05);
 }
 
 .container {
   max-width: 500px;
-  margin: 60px auto;
+  margin: 120px auto 60px auto;
 }
 
 .card {
@@ -30,12 +60,18 @@ input, button {
 button {
   cursor: pointer;
 }
-
 </style>
 
 </head>
 
 <body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+  <a href="index.html">Order</a>
+  <a href="track.html" style="background:#3a7bfd;">Track Here</a>
+  <a href="contact.html">Contact</a>
+</div>
 
 <div class="container">
 <div class="card">
@@ -83,7 +119,7 @@ async function track() {
   `;
 }
 
-/* ✔ AUTO LOAD FROM EMAIL LINK */
+/* AUTO LOAD FROM EMAIL LINK */
 window.onload = async function () {
 
   const params = new URLSearchParams(window.location.search);
@@ -96,7 +132,7 @@ window.onload = async function () {
   track();
 };
 
-/* ✔ LIVE UPDATE (NO REFRESH) */
+/* LIVE UPDATE (NO REFRESH) */
 setInterval(track, 5000);
 
 </script>
