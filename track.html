@@ -49,7 +49,7 @@ input, button {
 async function track() {
   const id = document.getElementById("orderId").value.toUpperCase();
 
-  const res = await fetch("https://script.google.com/macros/s/AKfycbw2A-b_0RM8PHk4on-J5biyuKrmrpfjuPf7hv21fxbju84cNc_MMG9ZYRGZ0vXwnk_j/exec");
+  const res = await fetch("https://script.google.com/macros/s/AKfycbzlZM8Ehv7guuRnE-q0HHe7BUD0B8HOkq01LdZcYMfqNM2iv1vAmqoQDn8zj7FRg88E/exec");
   const data = await res.json();
 
   const order = data.find(o => o.orderId === id);
