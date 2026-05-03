@@ -26,6 +26,11 @@ input, button {
   padding: 10px;
   margin: 8px 0;
 }
+
+button {
+  cursor: pointer;
+}
+
 </style>
 
 </head>
@@ -46,10 +51,15 @@ input, button {
 </div>
 
 <script>
-async function track() {
-  const id = document.getElementById("orderId").value.toUpperCase();
 
-  const res = await fetch("https://script.google.com/macros/s/AKfycbwwgVD5KWy7g2I6MoGtWBnsF1TVF_RdXyFwhq6RO0tLRjLEH5qu79nT9XzjDPF6bvRc/exec");
+const API_URL =
+  "https://script.google.com/macros/s/AKfycbwwgVD5KWy7g2I6MoGtWBnsF1TVF_RdXyFwhq6RO0tLRjLEH5qu79nT9XzjDPF6bvRc/exec";
+
+async function track() {
+
+  const id = document.getElementById("orderId").value.trim().toUpperCase();
+
+  const res = await fetch(API_URL);
   const data = await res.json();
 
   const order = data.find(o => o.orderId === id);
@@ -59,13 +69,36 @@ async function track() {
     return;
   }
 
+  const color =
+    order.status === "Done" ? "lime" :
+    order.status === "Processing" ? "dodgerblue" :
+    order.status === "Pending" ? "orange" :
+    "violet";
+
   document.getElementById("result").innerHTML = `
-    <p><b>Status:</b> ${order.status}</p>
+    <p><b>Status:</b> <span style="color:${color}">${order.status}</span></p>
     <p><b>Console:</b> ${order.console}</p>
     <p><b>Method:</b> ${order.method}</p>
     <p><b>Price:</b> $${order.price}</p>
   `;
 }
+
+/* ✔ AUTO LOAD FROM EMAIL LINK */
+window.onload = async function () {
+
+  const params = new URLSearchParams(window.location.search);
+  const orderId = params.get("order");
+
+  if (!orderId) return;
+
+  document.getElementById("orderId").value = orderId;
+
+  track();
+};
+
+/* ✔ LIVE UPDATE (NO REFRESH) */
+setInterval(track, 5000);
+
 </script>
 
 </body>
