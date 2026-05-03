@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <title>Contact - 209 Console Modding</title>
+
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+  <style>
+body {
+  margin:0;
+  font-family:Arial;
+  background:#0b0b10;
+  color:white;
+}
+
+/* NAVBAR */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(22,27,34,0.95);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 12px 0;
+  z-index: 1000;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 8px 14px;
+  border-radius: 8px;
+  transition: 0.2s;
+}
+
+.navbar a:hover {
+  background: #3a7bfd;
+  transform: scale(1.05);
+}
+
+.container {
+  max-width:500px;
+  margin:120px auto;
+  padding:20px;
+}
+
+.card {
+  background:rgba(22,27,34,0.85);
+  backdrop-filter: blur(10px);
+  padding:20px;
+  border-radius:16px;
+  text-align:center;
+}
+
+input, textarea {
+  width:100%;
+  padding:12px;
+  margin:10px 0;
+  border-radius:8px;
+  border:none;
+  font-family:Arial;
+}
+
+textarea {
+  resize:none;
+  height:120px;
+}
+
+.btn {
+  width:100%;
+  padding:12px;
+  background:#1f2937;
+  color:white;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:bold;
+  transition:0.2s;
+}
+
+.btn:hover {
+  background:#3a7bfd;
+  transform:scale(1.03);
+}
+
+.link {
+  display:block;
+  margin:12px 0;
+  padding:12px;
+  background:#1f2937;
+  border-radius:10px;
+  color:white;
+  text-decoration:none;
+  transition:0.2s;
+}
+
+.link:hover {
+  background:#3a7bfd;
+  transform:scale(1.03);
+}
+
+.g-recaptcha {
+  margin: 10px 0;
+  display:flex;
+  justify-content:center;
+}
+  </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+  <a href="index.html">Order</a>
+  <a href="track.html">Track Here</a>
+  <a href="contact.html" style="background:#3a7bfd;">Contact</a>
+</div>
+
+<div class="container">
+  <div class="card">
+
+    <h2>Contact Us</h2>
+
+    <a class="link" href="https://www.instagram.com/209consolemodding/" target="_blank">
+      Instagram: @209consolemodding
+    </a>
+
+    <form action="https://formsubmit.co/209consolemodding@gmail.com" method="POST">
+
+      <!-- disables FormSubmit captcha (we use Google instead visually) -->
+      <input type="hidden" name="_captcha" value="false">
+
+      <input type="text" name="name" placeholder="Your Name" required>
+      <textarea name="message" placeholder="Your Message" required></textarea>
+
+      <!-- reCAPTCHA -->
+      <div class="g-recaptcha" data-sitekey="6LcfhdYsAAAAAGMUpVALaZQALaOa2DZjQPlgbi5g"></div>
+
+      <button class="btn" type="submit">Send Message</button>
+
+    </form>
+
+  </div>
+</div>
+
+</body>
+</html>
