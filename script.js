@@ -1,17 +1,53 @@
 const PRICES = {
   "Old 3DS": 25,
-  "Old 2DS": 25,
+  "Old 3DS XL": 25,
   "New 3DS": 35,
   "New 3DS XL": 35,
+  "Old 2DS": 25,
   "New 2DS XL": 35,
+  "DS": 20,
+  "Wii (GameCube Ports)": 35,
+  "Wii (No GameCube Ports)": 30,
+  "Wii Mini": 25,
+  "Wii U": 35,
+  "PSP 1000": 25,
   "PSP 2000": 25,
+  "PSP 3000": 25,
+  "PSP Go": 30,
   "PS Vita 1000": 35,
-  "Wii U": 35
+  "PS Vita 2000": 35
 };
+
+function toggle(id) {
+  document.getElementById(id).classList.toggle("hidden");
+}
+
+function selectConsole(v) {
+  document.getElementById("console").value = v;
+  updatePrice();
+}
 
 function updatePrice() {
   const c = document.getElementById("console").value;
   document.getElementById("total").innerText = PRICES[c] || 0;
+}
+
+function updatePaymentOptions() {
+  const method = document.getElementById("method").value;
+  const payment = document.getElementById("payment");
+
+  payment.innerHTML = "";
+
+  if (method === "Mail-in") {
+    payment.innerHTML += `<option value="Card">Card (Required)</option>`;
+  }
+
+  if (method === "Local Pickup") {
+    payment.innerHTML += `
+      <option value="Cash">Cash</option>
+      <option value="Card">Card</option>
+    `;
+  }
 }
 
 function submitOrder() {
@@ -22,11 +58,6 @@ function submitOrder() {
   const method = document.getElementById("method").value;
   const payment = document.getElementById("payment").value;
 
-  if (!name || !email || !console || !method || !payment) {
-    alert("Fill all fields");
-    return;
-  }
-
   const data = new URLSearchParams();
   data.append("name", name);
   data.append("email", email);
@@ -34,19 +65,18 @@ function submitOrder() {
   data.append("method", method);
   data.append("payment", payment);
 
-  fetch("https://script.google.com/macros/s/AKfycbzxqt2JvH15YV8vMylzSvAeQ-XUQcU-GxFj8g44FA6ZJgHAFgutdWBq2UrdPGnYYbba/exec", {
+  fetch("YOUR_WEBAPP_URL", {
     method: "POST",
     body: data
   })
   .then(r => r.json())
   .then(res => {
 
-    // card redirect
     if (payment === "Card") {
       window.open("https://step.com/$/209_mv", "_blank");
     }
 
     window.location.href = "summary.html?order=" + res.orderId;
   })
-  .catch(err => alert("Error submitting order"));
+  .catch(err => alert("Error"));
 }
