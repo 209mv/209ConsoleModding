@@ -1,33 +1,69 @@
 <!DOCTYPE html>
 <html>
-<body style="background:#0b0b10;color:white;text-align:center;font-family:Arial;">
+<head>
+<title>Track Order</title>
 
-<h1>Track Order (enter everything including ORD-)</h1>
+<style>
+body {
+  font-family: Arial;
+  background: #0b0b10;
+  color: white;
+}
 
-<input id="id" placeholder="Order ID">
+.container {
+  max-width: 500px;
+  margin: 60px auto;
+}
+
+.card {
+  background: #161b22;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+input, button {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+<div class="card">
+
+<h2>Track Order</h2>
+
+<input id="orderId" placeholder="ORD-XXXXXX">
 <button onclick="track()">Track</button>
 
-<div id="out"></div>
+<div id="result"></div>
+
+</div>
+</div>
 
 <script>
 async function track() {
-  const id = document.getElementById("id").value;
+  const id = document.getElementById("orderId").value.toUpperCase();
 
-  const res = await fetch("https://script.google.com/macros/s/AKfycby9WlMzerm-tqYvuiHySkP6hVMoKjbUew7_RNFaLZmz6oOS0iNjqki5ZkvAzfyQkRtb/exec");
+  const res = await fetch("https://script.google.com/macros/s/AKfycbzxqt2JvH15YV8vMylzSvAeQ-XUQcU-GxFj8g44FA6ZJgHAFgutdWBq2UrdPGnYYbba/exec");
   const data = await res.json();
 
   const order = data.find(o => o.orderId === id);
 
   if (!order) {
-    document.getElementById("out").innerText = "Not found";
+    document.getElementById("result").innerHTML = "Not found";
     return;
   }
 
-  document.getElementById("out").innerHTML = `
-    <h2>${order.orderId}</h2>
-    <p>Status: ${order.status}</p>
-    <p>Console: ${order.console}</p>
-    <p>Total: $${order.price}</p>
+  document.getElementById("result").innerHTML = `
+    <p><b>Status:</b> ${order.status}</p>
+    <p><b>Console:</b> ${order.console}</p>
+    <p><b>Method:</b> ${order.method}</p>
+    <p><b>Price:</b> $${order.price}</p>
   `;
 }
 </script>
