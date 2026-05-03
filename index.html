@@ -2,16 +2,9 @@
 <html>
 <head>
   <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <div style="text-align:center; margin-top:20px;">
-  <img src="logo.png" style="
-    width:180px;
-    height:auto;
-    filter: drop-shadow(0px 0px 10px #00aaff);
-  ">
-</div>
-<title>209 Console Modding</title>
+  <title>209 Console Modding</title>
 
-<style>
+  <style>
 body {
   margin:0;
   font-family:Arial;
@@ -20,9 +13,44 @@ body {
   overflow-x:hidden;
 }
 
+/* NAVBAR */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(22,27,34,0.95);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 12px 0;
+  z-index: 1000;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 8px 14px;
+  border-radius: 8px;
+  transition: 0.2s;
+}
+
+.navbar a:hover {
+  background: #3a7bfd;
+  transform: scale(1.05);
+}
+
+/* active page */
+.navbar a.active {
+  background: #3a7bfd;
+}
+
+/* layout */
 .container {
   max-width:520px;
-  margin:40px auto;
+  margin:100px auto 40px auto;
   padding:20px;
 }
 
@@ -48,7 +76,6 @@ input {
   border-radius:8px;
 }
 
-/* clickable UI */
 .box {
   background:#1f2937;
   padding:12px;
@@ -78,11 +105,26 @@ input {
   background:#3a7bfd;
   transform:scale(1.03);
 }
-</style>
-
+  </style>
 </head>
 
 <body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+  <a href="index.html" class="active">Order</a>
+  <a href="track.html">Track Here</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<!-- LOGO -->
+<div style="text-align:center; margin-top:20px;">
+  <img src="logo.png" style="
+    width:180px;
+    height:auto;
+    filter: drop-shadow(0px 0px 10px #00aaff);
+  ">
+</div>
 
 <div class="container">
 <div class="card">
@@ -92,7 +134,6 @@ input {
 <input id="name" placeholder="Name">
 <input id="email" placeholder="Email">
 
-<!-- CONSOLE SELECTOR -->
 <p><b>Select Console:</b></p>
 
 <div class="box" onclick="selectConsole('Old 3DS')">Old 3DS</div>
@@ -118,22 +159,18 @@ input {
 <div class="box" onclick="selectConsole('PS Vita 1000')">PS Vita 1000</div>
 <div class="box" onclick="selectConsole('PS Vita 2000')">PS Vita 2000</div>
 
-<!-- hidden state holders -->
 <input type="hidden" id="console">
 <input type="hidden" id="method">
 <input type="hidden" id="payment">
 
-<!-- METHOD -->
 <p style="margin-top:15px;"><b>Method:</b></p>
 
 <div class="btn" onclick="selectMethod('Mail-in')">Mail-in</div>
 <div class="btn" onclick="selectMethod('Local Pickup')">Local Pickup</div>
 
-<!-- PAYMENT -->
 <p><b>Payment:</b></p>
 <div id="paymentOptions"></div>
 
-<!-- TOTAL -->
 <div class="total">
 Total: $<span id="total">0</span>
 </div>
