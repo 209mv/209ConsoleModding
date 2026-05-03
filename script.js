@@ -1,8 +1,3 @@
-let selectedConsole = "";
-let selectedMethod = "";
-let selectedPayment = "";
-let total = 0;
-
 const PRICES = {
   "Old 3DS": 25,
   "Old 2DS": 25,
@@ -14,63 +9,44 @@ const PRICES = {
   "Wii U": 35
 };
 
-function updateConsole() {
-  selectedConsole = document.getElementById("consoleSelect").value;
-  total = PRICES[selectedConsole] || 0;
-  document.getElementById("total").innerText = total;
-}
-
-function updateMethod() {
-  selectedMethod = document.getElementById("methodSelect").value;
-
-  const box = document.getElementById("paymentBox");
-  box.innerHTML = "";
-  selectedPayment = "";
-
-  if (!selectedMethod) return;
-
-  if (selectedMethod === "Mail-in") {
-    box.innerHTML = `<button onclick="setPayment('Card')">Pay with Card</button>`;
-  }
-
-  if (selectedMethod === "Local Pickup") {
-    box.innerHTML = `
-      <button onclick="setPayment('Cash')">Cash</button>
-      <button onclick="setPayment('Card')">Card</button>
-    `;
-  }
-}
-
-function setPayment(method) {
-  selectedPayment = method;
-  event.target.style.background = "#22c55e";
+function updatePrice() {
+  const c = document.getElementById("console").value;
+  document.getElementById("total").innerText = PRICES[c] || 0;
 }
 
 function submitOrder() {
 
   const name = document.getElementById("name").value;
   const email = document.getElementById("email").value;
+  const console = document.getElementById("console").value;
+  const method = document.getElementById("method").value;
+  const payment = document.getElementById("payment").value;
 
-  if (!name) return alert("Enter name");
-  if (!email) return alert("Enter email");
-  if (!selectedConsole) return alert("Select console");
-  if (!selectedMethod) return alert("Select method");
-  if (!selectedPayment) return alert("Select payment");
+  if (!name || !email || !console || !method || !payment) {
+    alert("Fill all fields");
+    return;
+  }
 
   const data = new URLSearchParams();
   data.append("name", name);
   data.append("email", email);
-  data.append("console", selectedConsole);
-  data.append("method", selectedMethod);
-  data.append("payment", selectedPayment);
+  data.append("console", console);
+  data.append("method", method);
+  data.append("payment", payment);
 
-  fetch("https://script.google.com/macros/s/AKfycby9WlMzerm-tqYvuiHySkP6hVMoKjbUew7_RNFaLZmz6oOS0iNjqki5ZkvAzfyQkRtb/exec", {
+  fetch("https://script.google.com/macros/s/AKfycbzxqt2JvH15YV8vMylzSvAeQ-XUQcU-GxFj8g44FA6ZJgHAFgutdWBq2UrdPGnYYbba/exec", {
     method: "POST",
     body: data
   })
   .then(r => r.json())
   .then(res => {
-    window.location.href = "track.html?order=" + res.orderId;
+
+    // card redirect
+    if (payment === "Card") {
+      window.open("https://step.com/$/209_mv", "_blank");
+    }
+
+    window.location.href = "summary.html?order=" + res.orderId;
   })
   .catch(err => alert("Error submitting order"));
 }
