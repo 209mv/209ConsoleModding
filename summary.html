@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Order Summary</title>
+
+<style>
+body {
+  font-family: Arial;
+  background: #0b0b10;
+  color: white;
+}
+
+.container {
+  max-width: 500px;
+  margin: 60px auto;
+}
+
+.card {
+  background: #161b22;
+  padding: 20px;
+  border-radius: 12px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+<div class="card" id="box">
+Loading...
+</div>
+</div>
+
+<script>
+const id = new URLSearchParams(window.location.search).get("order");
+
+document.getElementById("box").innerHTML = `
+<h2>Order Created</h2>
+<p><b>Order ID:</b> ${id}</p>
+<p>Save this ID to track your order.</p>
+<a href="track.html">Track Order</a>
+`;
+</script>
+
+</body>
+</html>
