@@ -19,25 +19,23 @@ body {
 
 .card {
   background: #161b22;
-  padding: 25px;
-  border-radius: 16px;
+  padding: 20px;
+  border-radius: 14px;
 }
 
 input, select {
   width: 100%;
-  padding: 12px;
+  padding: 10px;
   margin: 8px 0;
-  border-radius: 10px;
+  border-radius: 8px;
   border: none;
-  background: #0f172a;
-  color: white;
 }
 
 button {
   width: 100%;
   padding: 12px;
   margin-top: 10px;
-  border-radius: 10px;
+  border-radius: 8px;
   border: none;
   background: #3a7bfd;
   color: white;
@@ -48,7 +46,7 @@ button {
   margin-top: 10px;
   padding: 10px;
   background: #0f172a;
-  border-radius: 10px;
+  border-radius: 8px;
 }
 </style>
 
@@ -64,7 +62,7 @@ button {
 <input id="name" placeholder="Name">
 <input id="email" placeholder="Email">
 
-<select id="consoleSelect" onchange="updateConsole()">
+<select id="console" onchange="updatePrice()">
   <option value="">Select Console</option>
   <option>Old 3DS</option>
   <option>Old 2DS</option>
@@ -76,13 +74,17 @@ button {
   <option>Wii U</option>
 </select>
 
-<select id="methodSelect" onchange="updateMethod()">
+<select id="method">
   <option value="">Method</option>
   <option value="Mail-in">Mail-in</option>
   <option value="Local Pickup">Local Pickup</option>
 </select>
 
-<div id="paymentBox"></div>
+<select id="payment">
+  <option value="">Payment</option>
+  <option value="Cash">Cash</option>
+  <option value="Card">Card</option>
+</select>
 
 <div class="total">
 Total: $<span id="total">0</span>
