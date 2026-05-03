@@ -112,7 +112,7 @@ function submitOrder() {
   data.append("method", method);
   data.append("payment", payment);
 
-  fetch("https://script.google.com/macros/s/AKfycbzlZM8Ehv7guuRnE-q0HHe7BUD0B8HOkq01LdZcYMfqNM2iv1vAmqoQDn8zj7FRg88E/exec", {
+  fetch("https://script.google.com/macros/s/AKfycbwwgVD5KWy7g2I6MoGtWBnsF1TVF_RdXyFwhq6RO0tLRjLEH5qu79nT9XzjDPF6bvRc/exec", {
     method: "POST",
     body: data
   })
